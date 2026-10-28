@@ -1,0 +1,131 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>calificaciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <section class="intro">
+    <p class="eyebrow">gestion notas</p>
+    <h1>registro</h1>
+    <p>registrar observaciones </p>
+  </section>
+
+  <div class="summary-grid">
+    <ion-card class="summary-card">
+      <ion-card-content>
+        <p>estudiantes del curso</p>
+        <strong>{{ estudiantes.length }}</strong>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card class="summary-card">
+      <ion-card-content>
+        <p>promedio general</p>
+        <strong>{{ promedioGeneral | number:'1.1-2' }}</strong>
+        <span>sobre 5.0</span>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>filtrar por nota</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="filter-grid">
+        <ion-item>
+          <ion-input
+            label="Nota mínima"
+            labelPlacement="stacked"
+            type="number"
+            min="0"
+            max="5"
+            step="0.1"
+            [(ngModel)]="notaMinima"
+          >
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input
+            label="Nota máxima"
+            labelPlacement="stacked"
+            type="number"
+            min="0"
+            max="5"
+            step="0.1"
+            [(ngModel)]="notaMaxima"
+          >
+          </ion-input>
+        </ion-item>
+      </div>
+      <p class="filter-hint">Mostrando {{ estudiantesFiltrados.length }} de {{ estudiantes.length }} estudiantes.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Notas del curso</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        @for (estudiante of estudiantesFiltrados; track estudiante.id) {
+        <ion-item class="student-row" lines="full">
+          <ion-label class="ion-text-wrap">
+            <h2>{{ estudiante.nombre }}</h2>
+            <p>
+              Nota:
+              <strong>{{ estudiante.nota | number:'1.1-2' }}</strong>
+              <ion-badge [color]="estudiante.nota < 3 ? 'danger' : 'success'">
+                {{ estudiante.nota < 3 ? 'Reprobado' : 'Aprobado' }}
+              </ion-badge>
+            </p>
+            @if (estudiante.observacion) {
+            <p class="saved-observation">Observación: {{ estudiante.observacion }}</p>
+            }
+          </ion-label>
+          <ion-button slot="end" fill="outline" (click)="abrirModal(estudiante)">
+            {{ estudiante.observacion ? 'Editar observación' : 'Observación' }}
+          </ion-button>
+        </ion-item>
+        }
+      </ion-list>
+
+      @if (estudiantesFiltrados.length === 0) {
+      <p class="empty-state">No hay estudiantes con estas notas .</p>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Observación académica</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="cerrarModal()">Cerrar</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding">
+        @if (estudianteSeleccionado) {
+        <p class="modal-student">{{ estudianteSeleccionado.nombre }}</p>
+        <p class="modal-grade">Nota: {{ estudianteSeleccionado.nota | number:'1.1-2' }} / 5.0</p>
+        <ion-item class="observation-input">
+          <ion-textarea
+            label="Observación"
+            labelPlacement="stacked"
+            placeholder="Escribe una observación sobre el desempeño académico..."
+            [autoGrow]="true"
+            [(ngModel)]="observacionBorrador"
+          >
+          </ion-textarea>
+        </ion-item>
+        <p class="temporary-note">La observación se a guardaddo.</p>
+        <ion-button expand="block" (click)="guardarObservacion()"> guardar observación </ion-button>
+        }
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>

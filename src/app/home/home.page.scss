@@ -1,0 +1,162 @@
+:host {
+  --page-background: #f5f7fb;
+}
+
+ion-content {
+  --background: var(--page-background);
+}
+
+.intro {
+  margin: 8px 0 24px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--ion-color-primary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.intro h1 {
+  margin: 0;
+  color: #17233c;
+  font-size: 28px;
+  font-weight: 750;
+}
+
+.intro > p:last-child {
+  margin: 8px 0 0;
+  color: #68748a;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+ion-card {
+  margin: 12px 0;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgb(34 53 89 / 6%);
+}
+
+.summary-card {
+  margin: 0;
+}
+
+.summary-card ion-card-content {
+  display: flex;
+  min-height: 110px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.summary-card p {
+  margin: 0;
+  color: #68748a;
+}
+
+.summary-card strong {
+  color: #17233c;
+  font-size: 28px;
+}
+
+.summary-card span {
+  color: #8791a3;
+  font-size: 12px;
+}
+
+ion-card-title {
+  font-size: 18px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.filter-grid ion-item,
+.observation-input {
+  --border-radius: 8px;
+  --background: #ffff ;
+}
+
+.filter-hint {
+  margin: 12px 0 0;
+  color: #68748ac7;
+  font-size: 13px;
+}
+
+.student-row {
+  --padding-start: 4px;
+  --inner-padding-end: 4px;
+}
+
+.student-row h2 {
+  margin: 8px 0;
+  color: #86e4f0;
+  font-size: 16px;
+  font-weight: 650;
+}
+
+.student-row p {
+  margin: 8px 0;
+  color: #68748a;
+}
+
+.student-row ion-badge {
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+.saved-observation {
+  font-size: 13px;
+}
+
+.empty-state {
+  padding: 16px 6px;
+  color: #c3d0e7;
+  text-align: center;
+}
+
+.modal-student {
+  margin: 8px 0 4px;
+  color: #dbf36f;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.modal-grade,
+.temporary-note {
+  color: #68748a;
+}
+
+.observation-input {
+  margin: 18px 0 10px;
+}
+
+.temporary-note {
+  margin: 12px 0 20px;
+  font-size: 14px;
+}
+
+ion-modal {
+  --width: min(92%, 520px);
+  --height: 430px;
+  --border-radius: 12px;
+}
+
+@media (max-width: 520px) {
+  .filter-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .student-row ion-button {
+    font-size: 11px;
+  }
+}
